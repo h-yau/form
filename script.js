@@ -18,10 +18,24 @@ password.addEventListener('input', () => {
   validatePassword();
 });
 
+confirmPassword.addEventListener('input', () => {
+  confirmPassword.setCustomValidity('');
+  validateConfirmPassword();
+});
+
+const validateConfirmPassword = () => {
+  if (password.value.localeCompare(confirmPassword.value) != 0) {
+    confirmPassword.setCustomValidity('Not matching! How dare you!');
+    confirmPassword.reportValidity();
+  }
+};
+
 const validatePassword = () => {
   if (
     !checkIfLengthGreaterThan(8, password) ||
-    !checkIfAtLeastOneSpecialChar(password)
+    !checkIfAtLeastOneSpecialChar(password) ||
+    !hasLowerCase(password) ||
+    !hasUpperCase(password)
   ) {
     password.reportValidity();
   }
@@ -57,6 +71,24 @@ const checkIfValidEmail = (inputElement) => {
   } else if ('@' == inputElement.value[inputElement.value.length - 1]) {
     inputElement.setCustomValidity(
       "You know that's not a valid email address."
+    );
+    return false;
+  }
+  return true;
+};
+
+const hasLowerCase = (inputElement) => {
+  if (!/[a-z]/.test(inputElement.value)) {
+    inputElement.setCustomValidity("Where's my lower case letter?");
+    return false;
+  }
+  return true;
+};
+
+const hasUpperCase = (inputElement) => {
+  if (!/[A-Z]/.test(inputElement.value)) {
+    inputElement.setCustomValidity(
+      "Where's my upper case letter? Not cool man!"
     );
     return false;
   }
