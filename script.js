@@ -35,7 +35,8 @@ const validatePassword = () => {
     !checkIfLengthGreaterThan(8, password) ||
     !checkIfAtLeastOneSpecialChar(password) ||
     !hasLowerCase(password) ||
-    !hasUpperCase(password)
+    !hasUpperCase(password) ||
+    !notContainWhiteSpace(password)
   ) {
     password.reportValidity();
   }
@@ -89,6 +90,16 @@ const hasUpperCase = (inputElement) => {
   if (!/[A-Z]/.test(inputElement.value)) {
     inputElement.setCustomValidity(
       "Where's my upper case letter? Not cool man!"
+    );
+    return false;
+  }
+  return true;
+};
+
+const notContainWhiteSpace = (inputElement) => {
+  if (/ /.test(inputElement.value)) {
+    inputElement.setCustomValidity(
+      'No white space! Why are you being so difficult!?'
     );
     return false;
   }
