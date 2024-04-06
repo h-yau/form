@@ -1,5 +1,7 @@
 # Client-Side Form Validation Project
 
+Live repo here: [Form](https://h-yau.github.io/form)
+
 This project aims to demonstrate client-side form validation using HTML, CSS, and JavaScript. The form consists of various fields including email, country, zip code, password, and password confirmation. The validation process ensures that the provided information meets certain criteria before allowing submission.
 
 ## Features
