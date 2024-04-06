@@ -1,5 +1,7 @@
 const form = document.querySelector('form');
 const email = form.querySelector('#email');
+const country = form.querySelector('#country');
+const zipCode = form.querySelector('#zip-code');
 const password = form.querySelector('#password');
 const confirmPassword = form.querySelector('#confirm-password');
 const submitButton = document.querySelector('button');
@@ -13,6 +15,11 @@ email.addEventListener('input', () => {
   validateEmail();
 });
 
+country.addEventListener('change', () => {
+  country.setCustomValidity('');
+  validateCountry();
+});
+
 password.addEventListener('input', () => {
   password.setCustomValidity('');
   validatePassword();
@@ -22,6 +29,13 @@ confirmPassword.addEventListener('input', () => {
   confirmPassword.setCustomValidity('');
   validateConfirmPassword();
 });
+
+const validateCountry = () => {
+  if (!['USA', 'UK', 'DE', 'JP'].includes(country.value)) {
+    country.setCustomValidity('That is not a valid country');
+    country.reportValidity();
+  }
+};
 
 const validateConfirmPassword = () => {
   if (password.value.localeCompare(confirmPassword.value) != 0) {
