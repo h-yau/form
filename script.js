@@ -18,6 +18,10 @@ email.addEventListener('input', () => {
 country.addEventListener('change', () => {
   country.setCustomValidity('');
   validateCountry();
+
+  if (isEmpty(country)) {
+    validateZipCode();
+  }
 });
 
 password.addEventListener('input', () => {
@@ -29,6 +33,20 @@ confirmPassword.addEventListener('input', () => {
   confirmPassword.setCustomValidity('');
   validateConfirmPassword();
 });
+
+const isEmpty = (inputElement) => {
+  if (
+    inputElement.value == null ||
+    inputElement.value == undefined ||
+    inputElement.value == ''
+  ) {
+    return true;
+  } else return false;
+};
+
+const validateZipCode = () => {
+  // TODO
+};
 
 const validateCountry = () => {
   if (!['USA', 'UK', 'DE', 'JP'].includes(country.value)) {
