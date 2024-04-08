@@ -17,10 +17,11 @@ email.addEventListener('input', () => {
 
 country.addEventListener('change', () => {
   country.setCustomValidity('');
-  validateCountry();
 
-  if (isEmpty(country)) {
-    validateZipCode();
+  if (!isEmpty(country) && isCountryValid()) {
+    enableZipCode();
+  } else {
+    disableZipCode();
   }
 });
 
@@ -34,29 +35,54 @@ confirmPassword.addEventListener('input', () => {
   validateConfirmPassword();
 });
 
+zipCode.addEventListener('input', () => {
+  zipCode.setCustomValidity('');
+  validateZipCode(country.value);
+});
+
+const disableZipCode = () => {
+  zipCode.disabled = true;
+};
+
+const enableZipCode = () => {
+  zipCode.disabled = false;
+};
+
 const isEmpty = (inputElement) => {
   if (
     inputElement.value == null ||
     inputElement.value == undefined ||
     inputElement.value == ''
   ) {
-    console.log('empty');
     return true;
   } else {
-    console.log('not empty');
     return false;
   }
 };
 
-const validateZipCode = () => {
-  // TODO
+const validateZipCode = (country) => {
+  const constraints = {
+    USA: /^\d{5}(?:-\d{4})?$/,
+    UK: /^[0-9a-zA-Z]{5,7}$/,
+    DE: /^\d{5}$/,
+    JP: /^\d{3}-?\d{4}$/,
+  };
+
+  const constraint = constraints[country];
+
+  if (!constraint.test(zipCode.value)) {
+    zipCode.setCustomValidity('This is not quite right');
+    zipCode.reportValidity();
+  }
 };
 
-const validateCountry = () => {
+const isCountryValid = () => {
   if (!['USA', 'UK', 'DE', 'JP'].includes(country.value)) {
     country.setCustomValidity('That is not a valid country');
     country.reportValidity();
+    return false;
   }
+  return true;
 };
 
 const validateConfirmPassword = () => {
