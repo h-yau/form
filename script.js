@@ -40,8 +40,12 @@ const isEmpty = (inputElement) => {
     inputElement.value == undefined ||
     inputElement.value == ''
   ) {
+    console.log('empty');
     return true;
-  } else return false;
+  } else {
+    console.log('not empty');
+    return false;
+  }
 };
 
 const validateZipCode = () => {
