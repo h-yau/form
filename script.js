@@ -12,7 +12,9 @@ submitButton.addEventListener('submit', (e) => {
 
 email.addEventListener('input', () => {
   email.setCustomValidity('');
-  validateEmail();
+  if (!isEmpty(email)) {
+    validateEmail();
+  }
 });
 
 country.addEventListener('change', () => {
@@ -27,12 +29,16 @@ country.addEventListener('change', () => {
 
 password.addEventListener('input', () => {
   password.setCustomValidity('');
-  validatePassword();
+  if (!isEmpty(password)) {
+    validatePassword();
+  }
 });
 
 confirmPassword.addEventListener('input', () => {
   confirmPassword.setCustomValidity('');
-  validateConfirmPassword();
+  if (!isEmpty(confirmPassword)) {
+    validateConfirmPassword();
+  }
 });
 
 zipCode.addEventListener('input', () => {
